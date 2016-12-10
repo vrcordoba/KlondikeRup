@@ -1,0 +1,19 @@
+@startuml
+actor Player
+participant OriginPileOfCards
+participant DestinationPileOfCards
+Player -> OriginPileOfCards : mover(N cartas)
+activate OriginPileOfCards
+OriginPileOfCards -> OriginPileOfCards : ¿Se pueden mover N cartas\nde la pila origen?
+OriginPileOfCards -> OriginPileOfCards : ¿Tiene la pila origen N\ncartas?
+OriginPileOfCards -> OriginPileOfCards : ¿Está la carta más abajo\ndel conjunto que se quiere\nmover boca arriba?
+OriginPileOfCards -> DestinationPileOfCards : mover(N cartas)
+activate DestinationPileOfCards
+DestinationPileOfCards -> DestinationPileOfCards : ¿Se pueden mover N cartas\na la pila destino?
+DestinationPileOfCards -> DestinationPileOfCards : ¿Soy un destino válido para las N cartas?
+note over DestinationPileOfCards: Las reglas para saber si una pila es un destino válido\nestán descritas en los diagramas de actividad
+DestinationPileOfCards -> OriginPileOfCards : movimiento válido
+deactivate DestinationPileOfCards
+OriginPileOfCards -> Player : movimiento válido
+deactivate OriginPileOfCards
+@enduml
