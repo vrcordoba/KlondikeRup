@@ -1,0 +1,50 @@
+@startuml
+
+hide footbox
+
+actor Jugador
+participant Klondike
+
+activate Klondike
+Jugador -> Klondike : Solicita mover una carta del waste al foundation
+
+alt No hay cartas en el waste
+    Klondike -> Jugador : Movimiento erróneo
+else Hay cartas en el waste
+    alt El foundation está vacío
+        alt La carta a mover es la más baja del palo
+            Klondike -> Klondike : Mover carta a foundation
+            Klondike -> Klondike : Actualizar puntuación
+            Klondike -> Klondike : Actualizar histórico de comandos
+            alt La partida ha terminado
+                Klondike -> Klondike : Pasar a estado Ranking
+            else La partida no ha terminado
+                Klondike -> Jugador : Mostrar tablero actualizado
+            end
+        else La carta a mover no es la más baja del palo
+            Klondike -> Jugador : Movimiento erróneo
+        end
+
+newpage
+
+    else El foundation no está vacío
+        alt La carta superior del foundation y la carta a mover comparten palo
+            alt La diferencia entre el número de la carta a mover\ny la carta superior de foundation es 1
+                Klondike -> Klondike : Mover carta a foundation
+                Klondike -> Klondike : Actualizar puntuación
+                Klondike -> Klondike : Actualizar histórico de comandos
+                alt La partida ha terminado
+                    Klondike -> Klondike : Pasar a estado Ranking
+                else La partida no ha terminado
+                    Klondike -> Jugador : Mostrar tablero actualizado
+                end
+            else La diferencia entre el número de la carta a mover\ny la carta superior de foundation no es 1
+                Klondike -> Jugador : Movimiento erróneo
+            end 
+        else La carta superior del foundation y la carta a mover no comparten palo
+            Klondike -> Jugador : Movimiento erróneo
+            deactivate Klondike
+        end
+    end
+end
+@enduml

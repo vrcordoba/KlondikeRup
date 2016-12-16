@@ -1,0 +1,23 @@
+@startuml
+
+hide footbox
+
+actor Jugador
+participant Klondike
+
+activate Klondike
+Jugador -> Klondike : Solicita sacar cartas del deck
+
+alt No hay cartas en el deck
+    Klondike -> Klondike : Barajar cartas del waste
+    Klondike -> Klondike : Ocultar cartas barajadas
+    Klondike -> Klondike : Colocar cartas en el deck
+    Klondike -> Klondike : Decrementar puntuación
+end
+Klondike -> Klondike : Descubrir hasta 3 cartas
+Klondike -> Klondike : Colocar cartas descubiertas en el waste
+Klondike -> Klondike : Actualizar histórico de movimientos
+Klondike -> Jugador : Mostrar tablero actualizado
+deactivate Klondike
+
+@enduml

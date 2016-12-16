@@ -1,0 +1,22 @@
+@startuml
+
+hide footbox
+
+actor Jugador
+participant Klondike
+
+activate Klondike
+Jugador -> Klondike : Solicita abandonar el juego
+Klondike -> Jugador : Muestra mensaje de confirmación de la acción
+
+alt Abandonar juego
+    Klondike -> Klondike : Limpiar histórico de comandos
+    Klondike -> Klondike : Pasar a estado Ranking
+    Klondike -> Jugador : Mostrar ranking
+else Continuar
+    Klondike -> Klondike : Recuperar estado antes de\nejecutar este caso de uso
+    Klondike -> Jugador : Mostrar tablero
+    deactivate Klondike
+end
+
+@enduml
